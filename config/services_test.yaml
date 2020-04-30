@@ -1,0 +1,58 @@
+services:
+    App\Service\SmsSender\TwilioSmsSender:
+        arguments:
+            - '@app.twilio.client'
+            - '%env(TWILIO_NUMBER)%'
+
+    test.App\Service\Encoder\LcobucciJWTEncoder:
+        alias: App\Service\Encoder\LcobucciJWTEncoder
+        public: true
+
+    google.provider:
+        class: League\OAuth2\Client\Provider\Google
+
+    facebook.provider:
+        class: League\OAuth2\Client\Provider\Facebook
+        arguments:
+            -   graphApiVersion: v2.12
+
+    appid.provider:
+        class: Jampire\OAuth2\Client\Provider\AppIdProvider
+        arguments:
+            -   baseAuthUri: '%env(OAUTH_APPID_BASE_AUTH_URI)%'
+                tenantId: '%env(OAUTH_APPID_TENANT_ID)%'
+
+    knpu.oauth2.client.google:
+        class: App\Tests\Functional\src\Service\GoogleClient
+        public: true
+        arguments:
+            - '@google.provider'
+            - '@request_stack'
+
+    knpu.oauth2.client.facebook:
+        class: App\Tests\Functional\src\Service\FacebookClient
+        public: true
+        arguments:
+            - '@facebook.provider'
+            - '@request_stack'
+
+    knpu.oauth2.client.appid:
+        class: App\Tests\Functional\src\Service\AppIdClient
+        public: true
+        arguments:
+            - '@appid.provider'
+            - '@request_stack'
+
+    App\Service\HttpClient\GeoHttpClient:
+        class: App\Tests\Functional\src\Service\GeoHttpClient
+        arguments:
+            - '@parameter_bag'
+
+    App\Service\FileManager\FileManagerInterface:
+        class: App\Tests\Functional\src\Service\AwsS3FileManager
+
+    App\Service\SmsSender\SmsSenderInterface:
+        class: App\Tests\Functional\src\Service\SmsSender
+
+    App\Util\SmsCodeGenerator:
+        class: App\Tests\Functional\src\Util\SmsCodeGenerator

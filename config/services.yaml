@@ -1,0 +1,76 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    service_geo_base_uri: '%env(SERVICE_GEO)%'
+    sms_sending_retry_ttl: '%env(int:SMS_SENDING_RETRY_TTL)%'
+    sms_sending_retry_number: '%env(int:SMS_SENDING_RETRY_NUMBER)%'
+    sms_sending_code_ttl: '%env(int:SMS_SENDING_CODE_TTL)%'
+    firewall_name: api
+    from_email:
+        address: '%env(MAILER_SENDER_ADDRESS)%'
+        sender_name: '%env(PROJECT_NAME)%'
+    jwt_authentication:
+        secret_key: '%env(resolve:JWT_SECRET_KEY)%'
+        public_key: '%env(resolve:JWT_PUBLIC_KEY)%'
+        pass_phrase: '%env(JWT_PASSPHRASE)%'
+        signature_algorithm: '%env(JWT_SIGNATURE_ALGORITHM)%'
+        token_ttl: '%env(int:JWT_TOKEN_TTL)%'
+        clock_skew: '%env(int:JWT_CLOCK_SKEW)%'
+        refresh_token_ttl: '%env(int:JWT_REFRESH_TOKEN_TTL)%'
+    aws_s3_link_ttl: '%env(int:AWS_S3_LINK_TTL)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    app.twilio.client:
+        class: Twilio\Rest\Client
+        arguments:
+            - '%env(TWILIO_ACCOUNT_SID)%'
+            - '%env(TWILIO_AUTH_TOKEN)%'
+
+    Aws\S3\S3ClientInterface:
+        class: Aws\S3\S3Client
+        arguments:
+            -
+                version: '%env(AWS_S3_VERSION)%'
+                region:  '%env(AWS_S3_REGION)%'
+                credentials:
+                    key:    '%env(AWS_S3_KEY)%'
+                    secret: '%env(AWS_S3_SECRET)%'
+                endpoint: 'https://%env(AWS_S3_REGION)%.digitaloceanspaces.com'
+
+    App\Service\SmsSender\SmsSenderInterface:
+        class: App\Service\SmsSender\TwilioSmsSender
+        arguments:
+            - '@app.twilio.client'
+            - '%env(TWILIO_NUMBER)%'
+
+    App\Service\Encoder\JWTEncoderInterface:
+        class: App\Service\Encoder\LcobucciJWTEncoder
+
+    App\Service\TokenExtractor\TokenExtractorInterface:
+        class: App\Service\TokenExtractor\BodyParameterTokenExtractor
+
+    App\Service\FileManager\FileManagerInterface:
+        class: App\Service\FileManager\AwsS3FileManager

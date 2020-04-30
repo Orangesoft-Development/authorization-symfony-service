@@ -1,0 +1,6 @@
+swiftmailer:
+    url: '%env(MAILER_URL)%'
+    sender_address: '%env(MAILER_SENDER_ADDRESS)%'
+#    spool:
+#        type: file
+#        path: '%kernel.project_dir%/var/spool'

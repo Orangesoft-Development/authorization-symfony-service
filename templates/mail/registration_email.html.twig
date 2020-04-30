@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block subject %}
+    {{ 'resetting.email.subject'|trans({'%username%': user.username}) }}
+{% endblock %}
+
+{% block body_text %}{% endblock %}
+
+{% block body_html %}
+    <ul>
+    <li>
+        <strong>{% trans %}resetting.email.label_username{% endtrans %}: </strong>{{ user.username }}
+    </li>
+    <li>
+        <strong>{% trans %}resetting.email.label_confirmation_token{% endtrans %}</strong>: {{ user.confirmationToken }}
+    </li>
+    </ul>
+{% endblock %}

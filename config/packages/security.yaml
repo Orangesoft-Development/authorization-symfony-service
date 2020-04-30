@@ -1,0 +1,54 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\SmsCode:
+            algorithm: auto
+        App\Entity\User:
+            algorithm: auto
+
+    role_hierarchy:
+        ROLE_SUPER_ADMIN: [ROLE_USER]
+
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            id: App\Security\AccountProvider\AccountProvider
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        refresh_token:
+            methods: POST
+            pattern: ^/auth/refresh-token
+            guard:
+                authenticators:
+                    - App\Security\Guard\RefreshTokenAuthenticator
+
+        login:
+            pattern: ^/auth/login
+            guard:
+                authenticators:
+                    - App\Security\Guard\AppleIdAuthenticator
+                    - App\Security\Guard\DefaultAuthenticator
+                    - App\Security\Guard\FacebookAuthenticator
+                    - App\Security\Guard\GoogleAuthenticator
+                    - App\Security\Guard\PhoneAuthenticator
+                entry_point: App\Security\Guard\DefaultAuthenticator
+
+        auth:
+            stateless: true
+            anonymous: true
+            provider:  app_user_provider
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }

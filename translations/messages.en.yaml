@@ -1,0 +1,10 @@
+registration:
+    email:
+        subject: Welcome %username%
+        label_username: Username
+        label_confirmation_token: Confirmation token
+resetting:
+    email:
+        subject: Welcome %username%
+        label_username: Username
+        label_confirmation_token: Confirmation token
