@@ -10,7 +10,7 @@ use App\Security\Guard\FacebookAuthenticator;
 use App\Security\Guard\GoogleAuthenticator;
 use App\Security\Guard\PhoneAuthenticator;
 use PHPUnit\Framework\MockObject\MockObject;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 

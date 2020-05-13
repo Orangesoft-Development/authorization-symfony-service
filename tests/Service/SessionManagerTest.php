@@ -7,7 +7,7 @@ use App\Repository\SessionRepository;
 use App\Service\SessionManager;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 class SessionManagerTest extends TestCase

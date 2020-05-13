@@ -108,9 +108,11 @@ class AuthControllerTest extends AbstractWebTestCase
     /**
      * @param array $authTokens
      *
+     * @return array
+     *
      * @depends testLoginByPhone
      */
-    public function testRefreshToken(array $authTokens): void
+    public function testRefreshToken(array $authTokens): array
     {
         self::$client->request(Request::METHOD_POST, '/auth/refresh-token', $authTokens);
 
@@ -119,12 +121,14 @@ class AuthControllerTest extends AbstractWebTestCase
         $response = json_decode(self::$client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('access_token', $response);
         $this->assertArrayHasKey('refresh_token', $response);
+
+        return $response;
     }
 
     /**
      * @param array $authTokens
      *
-     * @depends testLoginByPhone
+     * @depends testRefreshToken
      */
     public function testLogout(array $authTokens): void
     {

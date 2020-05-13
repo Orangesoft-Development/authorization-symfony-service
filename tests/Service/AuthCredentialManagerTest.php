@@ -8,7 +8,7 @@ use App\Repository\AuthCredentialRepository;
 use App\Service\AuthCredentialManager;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class AuthCredentialManagerTest extends TestCase
 {

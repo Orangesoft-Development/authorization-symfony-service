@@ -6,7 +6,7 @@ use App\Storage\StreamedFile;
 use App\Validator\StreamFile;
 use App\Validator\StreamFileValidator;
 use PHPUnit\Framework\MockObject\MockObject;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Validator\ContextualValidatorInterface;
@@ -131,6 +131,12 @@ class StreamFileValidatorTest extends TestCase
     {
         /** @var TranslatorInterface|MockObject $translator */
         $translator = $this->getMockBuilder(TranslatorInterface::class)->getMock();
+        $translator
+            ->expects($this->any())
+            ->method('trans')
+            ->willReturn('Error')
+        ;
+
         /** @var ValidatorInterface|MockObject $validator */
         $validator = $this->createMock(ValidatorInterface::class);
         $contextualValidator = $this->createMock(ContextualValidatorInterface::class);

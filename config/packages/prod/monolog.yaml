@@ -6,8 +6,9 @@ monolog:
             handler: nested
             excluded_http_codes: [404, 405]
         nested:
-            type: stream
+            type: rotating_file
             path: "%kernel.logs_dir%/%kernel.environment%.log"
+            max_files: 5
             level: debug
         console:
             type: console

@@ -3,7 +3,7 @@
 namespace App\Tests\Service\TokenExtractor;
 
 use App\Service\TokenExtractor\BodyParameterTokenExtractor;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 class BodyParameterTokenExtractorTest extends TestCase

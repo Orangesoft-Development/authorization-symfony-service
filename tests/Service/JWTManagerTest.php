@@ -6,7 +6,7 @@ use App\Entity\Account;
 use App\Service\Encoder\JWTEncoderInterface;
 use App\Service\JWTManager;
 use PHPUnit\Framework\MockObject\MockObject;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class JWTManagerTest extends TestCase
 {

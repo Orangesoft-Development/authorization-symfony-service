@@ -7,7 +7,7 @@ use App\Exception\AccountNotFoundException;
 use App\Security\AccountProvider\AccountProvider;
 use App\Service\AccountManager;
 use PHPUnit\Framework\MockObject\MockObject;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class AccountProviderTest extends TestCase
 {

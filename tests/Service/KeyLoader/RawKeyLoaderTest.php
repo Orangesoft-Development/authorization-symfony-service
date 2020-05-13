@@ -4,7 +4,7 @@ namespace App\Tests\Service\KeyLoader;
 
 use App\Service\KeyLoader\AbstractKeyLoader;
 use App\Service\KeyLoader\RawKeyLoader;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 class RawKeyLoaderTest extends TestCase

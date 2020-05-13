@@ -61,7 +61,7 @@ class Account implements UserInterface
      *
      * @ORM\Column(type="string", length=2, nullable=true)
      *
-     * @Assert\Length(min=2, max=2)
+     * @Assert\Length(min=2, max=2, allowEmptyString=false)
      */
     protected $countryId;
 

@@ -5,7 +5,7 @@ namespace App\Tests\Util;
 use App\Entity\SmsCode;
 use App\Util\SmsCodeUpdater;
 use PHPUnit\Framework\MockObject\MockObject;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\NativePasswordEncoder;
 

@@ -26,9 +26,11 @@ abstract class AbstractWebTestCase extends WebTestCase
      */
     public static function setUpBeforeClass(): void
     {
-        self::tearDownAfterClass();
+        self::ensureKernelShutdown();
 
         self::$client = self::createClient();
+
+        self::tearDownAfterClass();
     }
 
     /**

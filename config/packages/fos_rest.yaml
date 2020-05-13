@@ -3,23 +3,15 @@ fos_rest:
     body_listener: true
     param_fetcher_listener: force
 #    allowed_methods_listener:  true
-    routing_loader:
-        default_format: json
-        include_format: false
+    routing_loader: false
     view:
         view_response_listener: force
         formats:
             json: true
             xml: false
             rss: false
-        templating_formats:
-            html: true
     exception:
-        enabled: true
-#        codes:
-#            App\Exception\MyException: 403
-#        messages:
-#            App\Exception\MyException: Forbidden area.
+        serialize_exceptions: false
     format_listener:
         enabled: true
         rules:

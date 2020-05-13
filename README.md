@@ -1,3 +1,14 @@
+This service allows you to store information about user accounts and provides a single authorization.
+
+**Authorization supported:**
+ * by phone number
+ * using social networks
+ 
+**Social networks with which you can authorize:**
+ * Facebook
+ * Google
+ * AppleID
+
 # Composer
 
 	composer install -n

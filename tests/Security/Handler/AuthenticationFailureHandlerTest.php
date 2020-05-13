@@ -3,7 +3,7 @@
 namespace App\Tests\Security\Handler;
 
 use App\Security\Handler\AuthenticationFailureHandler;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;

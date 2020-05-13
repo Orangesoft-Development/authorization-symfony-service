@@ -8,7 +8,7 @@ use App\Service\SmsCodeManager;
 use App\Util\SmsCodeUpdater;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\MockObject\MockObject;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class SmsCodeManagerTest extends TestCase
 {
@@ -18,28 +18,18 @@ class SmsCodeManagerTest extends TestCase
     private $smsCodeRepository;
 
     /**
-     * @var EntityManagerInterface|MockObject
-     */
-    private $entityManager;
-
-    /**
-     * @var SmsCodeUpdater|MockObject
-     */
-    private $smsCodeUpdater;
-
-    /**
      * @var SmsCodeManager
      */
     private $smsCodeManager;
 
     protected function setUp()
     {
-        $this->smsCodeUpdater = $this->getSmsCodeUpdater();
+        $smsCodeUpdater = $this->getSmsCodeUpdater();
 
         $this->smsCodeRepository = $this->createMock(SmsCodeRepository::class);
-        $this->entityManager = $this->getEntityManager($this->smsCodeRepository);
+        $entityManager = $this->getEntityManager($this->smsCodeRepository);
 
-        $this->smsCodeManager = new SmsCodeManager($this->smsCodeUpdater, $this->entityManager);
+        $this->smsCodeManager = new SmsCodeManager($smsCodeUpdater, $entityManager);
     }
 
     public function testFindSmsCodeBy(): void

@@ -10,8 +10,8 @@ use League\Flysystem\AwsS3v3\AwsS3Adapter;
 use League\Flysystem\FileNotFoundException;
 use League\Flysystem\Filesystem;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 
 class AwsS3FileManagerTest extends TestCase
